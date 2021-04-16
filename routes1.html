@@ -1,0 +1,79 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.2.6.12.js"></script>
+</head>
+<body>
+    <div id="app">
+        <a href="" v-on:click.prevent="login">登录组件</a>
+        <a href="" v-on:click.prevent="reg">注册组件</a>
+
+        <user-login v-if="isloginshow"></user-login>
+        <user-reg v-if="isregshow"></user-reg>
+    </div>
+</body>
+</html>
+<script>
+    Vue.component("user-login",{
+        template:"<h1>登录</h1>"
+    })
+    Vue.component("user-reg",{
+        template:"<h1>注册</h1>"
+    })
+    new Vue({
+        el:"#app",
+        data:{
+            isloginshow: false,
+            isregshow: false
+        },
+        methods:{
+            login(){
+                this.isregshow = false
+                this.isloginshow = true
+            },
+            reg(){
+                this.isloginshow = false
+                this.isregshow = true
+            }
+        }
+    })
+</script> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.2.6.12.js"></script>
+</head>
+<body>
+    <div id="app">
+        <router-link to="/foo">注册</router-link> 
+        <router-link to="/bar">登录</router-link>
+        <router-view></router-view> 
+    </div>
+</body>
+</html>
+<script>
+    const Foo = { template:'<div>注册</div>'}
+    const Bar = { template:'<div>登录</div>'}
+
+    const routes = [
+        { path: '/foo', component: Foo },
+        { path: '/bar', component: Bar },
+    ]
+
+    //创建router实例，然后·routes·配置
+    const router = new VueRouter({
+        routes // (缩写) 相当于 routes: routes
+    })
+
+    //挂载根到vue实例
+    const app = new Vue ({
+        el:"#app",
+        router :router
+    })
+</script>
