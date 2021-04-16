@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <h1>登录页面</h1>
+        用户名：<input type="text" v-model="user_name"> <br>   <!--v-model：在表单控件或者组件上创建双向绑定 -->
+        密码： <input type="password" v-model="user_pass"> <br>
+         <button @click="login">登录</button>  <!--v-on缩写 @ -->
+    </div>
+    <script src="./js/axios.min.js"></script>
+    <script src="./js/vue.2.6.12.js"></script>
+    <script src="./js/vue-router.js"></script>
+    <script>
+        new Vue({
+            el: "#app",    // 也就是Vue实例挂载的元素节点
+            data: {       //组件化
+                user_name: "",
+                user_pass: ""
+            },
+            methods: {    //方法   计算属性（computed）、方法（methods）和侦听属性（watch）
+                //点击登录触发
+                login() {
+                    const user_name = this.user_name
+                    const user_pass = this.user_pass
+                    console.log(user_name, user_pass)
+                    //发送 post请求， 将 用户名和密码发送给后端登录接口
+                    axios.post("http://localhost:8080/user/login", { user_name: user_name, user_pass: user_pass }).then(function (res) {
+                        console.log(res)
+                    })
+                }
+            }
+        })
+    </script> 
+</body>
+</html>
