@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/vue.2.6.12.js"></script>
+    <script src="./js/vue-router.js"></script>
+    <script src="./js/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <user-login></user-login>
+    </div>
+</body>
+</html>
+<script>
+    //定义一个局部组件
+    const userLogin = {
+        props:["user_name","user_pass"],
+        template: `
+        <div>
+            <h1>登录页面</h1>
+        用户名：<input type="text" v-model="user_name"> <br>  
+        密码： <input type="password" v-model="user_pass"> <br>
+        <button @click="login">登录</button>  </div>
+        `,
+        methods:{
+            login(){
+                console.log(this.user_name,this.user_pass)
+                //请求接口  /user/login
+                axios.post("http://localhost:8080/user/login",{
+                    name:this.user_namae,
+                    pass:this.user_pass
+                }).then(function(response){
+                    console.log(response.data)
+                }) 
+            }
+        }
+    }
+
+    new Vue({
+        el: "#app",
+        data:{
+            user_name:"",
+            user_pass:"",
+        },
+        components: {
+            "user-login": userLogin
+        }
+    })
+</script>
